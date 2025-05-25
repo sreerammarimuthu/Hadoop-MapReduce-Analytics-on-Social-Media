@@ -63,4 +63,4 @@ public class Task_A {
     }
 }
 
-// Execution Time - 1067ms
+// Execution Time: 1067ms
