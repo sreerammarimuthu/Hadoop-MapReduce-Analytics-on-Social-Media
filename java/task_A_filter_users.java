@@ -1,5 +1,6 @@
 import java.io.IOException;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -11,11 +12,13 @@ import org.apache.log4j.BasicConfigurator;
 public class Task_A {
 
     public static void main(String[] args) throws Exception {
-        // Record the start time before starting the job
+        // Starting timer
         long startTime = System.currentTimeMillis();
+        BasicConfigurator.configure();
+
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "Task_A");
-        BasicConfigurator.configure();
+
         job.setJarByClass(Task_A.class);
         job.setJobName("FindUsersWithSameNationality");
 
@@ -23,22 +26,22 @@ public class Task_A {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
-        // Specify the input and output paths using Hadoop Path objects
-        Path inputPath = new Path("hdfs://localhost:9000/project1/FaceInPage.csv"); // Adjust the input path
-        Path outputPath = new Path("hdfs://localhost:9000/project1/Output01"); // Adjust the output path
+        // Input and output paths
+        Path inputPath = new Path("hdfs://localhost:9000/project1/FaceInPage.csv");
+        Path outputPath = new Path("hdfs://localhost:9000/project1/Output01");
+
         FileInputFormat.setInputPaths(job, inputPath);
         FileOutputFormat.setOutputPath(job, outputPath);
 
-        // Record the end time after configuring the job
+        // Clean output path if it already exists
+        FileSystem.get(conf).delete(outputPath, true);
+
+        // Submit job and wait for completion
+        boolean success = job.waitForCompletion(true);
         long endTime = System.currentTimeMillis();
+        System.out.println("Total execution time for Task A: " + (endTime - startTime) + " ms");
 
-        // Calculate the elapsed time
-        long elapsedTime = endTime - startTime;
-
-        // Print the total execution time for Task A
-        System.out.println("Total execution time for Task A: " + elapsedTime + " milliseconds.");
-        // Wait for the job to complete and exit with a success status
-        System.exit(job.waitForCompletion(true) ? 0 : 1);
+        System.exit(success ? 0 : 1);
     }
 
     public static class NationalityMapper extends Mapper<Object, Text, Text, Text> {
@@ -47,9 +50,9 @@ public class Task_A {
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String[] fields = value.toString().split(",");
 
-            if (fields.length >= 4) {
-                String nationality = fields[2].trim();
+            if (fields.length >= 5) {
                 String name = fields[1].trim();
+                String nationality = fields[2].trim();
                 String hobby = fields[4].trim();
 
                 if (nationality.equals(YOUR_NATIONALITY)) {
@@ -59,4 +62,5 @@ public class Task_A {
         }
     }
 }
-//1067ms
+
+// Execution Time - 1067ms
