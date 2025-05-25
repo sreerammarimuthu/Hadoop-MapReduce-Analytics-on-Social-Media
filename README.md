@@ -1,4 +1,4 @@
-# Social-Media: Graph Analytics with Hadoop MapReduce
+# Social-Media Graph Analytics with Hadoop MapReduce
 
 This project explores social media behavior analytics using Hadoop MapReduce in Java. Working with large synthetic datasets, it performs 8 core ETL tasks across a network of users, pages, and interactions. Each implemented from scratch to demonstrate distributed computing principles, optimization strategies, and system-level thinking in big data environments. Optimized and original versions of all 8 tasks are included.
 
