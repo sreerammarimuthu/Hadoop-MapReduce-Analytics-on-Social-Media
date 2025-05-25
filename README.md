@@ -4,7 +4,7 @@ This project explores social media behavior analytics using Hadoop MapReduce in 
 
 ## Contents
 
-- `data/` – Subsets of the input datasets and their documentation.
+- `data/` – Subsets of the big datasets and their documentation.
 - `java/` – Standard MapReduce implementations using Java (Tasks A–H).
 - `java-ov/` – Optimized versions of `java/` with improved logic and performance.
 - `utils/` – Supporting files for the analysis (e.g., timestamp generator, dataset creator).
