@@ -14,7 +14,6 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.log4j.BasicConfigurator;
 
-
 public class Task_F {
     // Mapper: Emits (PersonB_ID, "ASSOC:PersonA_ID")
     public static class AssociatesMapper extends Mapper<Object, Text, Text, Text> {
