@@ -10,7 +10,7 @@ This project explores social media behavior analytics using Hadoop MapReduce in 
 - `utils/` - Supporting files for the analysis (here it's dataset creator, timestamp generator).
 - `output/` - Output results for each task.
 
-## Tasks Summary
+## Summary of Tasks  
 
 | Task | Focus |
 |------|-------|
